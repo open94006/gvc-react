@@ -1,6 +1,7 @@
 // @ts-ignore Runtime module is served from the prebuilt lowcode bundle.
 import { init } from '../lowcode/glitterBundle/GVController.js';
 import { CounterGVC } from './pages/CounterGVC.js';
+import { RenderGVC } from './pages/RenderGVC.js';
 const html = String.raw;
 init(import.meta.url, (gvc) => {
     const bind_id = 'home-view';
@@ -13,7 +14,7 @@ init(import.meta.url, (gvc) => {
             <p>這裡的元件是由 GVC 產生</p>
           </div>
           <div style="display: flex; flex-direction: column; align-items: start; margin-top: 20px; gap: 20px;">
-            ${[CounterGVC(gvc), CounterGVC(gvc)].join('')}
+            ${[CounterGVC(gvc), RenderGVC(gvc)].join('')}
           </div>`;
             },
             divCreate: {

@@ -5,10 +5,7 @@ const html = String.raw;
 
 export function CounterGVC(gvc: GVC) {
   const id = gvc.glitter.getUUID();
-
-  const vm = {
-    count: 0,
-  };
+  const vm = { count: 0 };
 
   return gvc.bindView({
     bind: id,

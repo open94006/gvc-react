@@ -133,7 +133,7 @@ export class PageManager {
 
     public static setHome(url: string, tag: string, obj: any, option: { animation?: AnimationConfig; backGroundColor?: string; dismiss?: () => void } = {}) {
         const glitter = Glitter.glitter;
-        console.log(`setHome-time:`, (window as any).renderClock?.stop());
+        // console.log(`setHome-time:`, (window as any).renderClock?.stop());
         if (glitter.waitChangePage) {
             setTimeout(() => {
                 this.setHome(url, tag, obj, option);

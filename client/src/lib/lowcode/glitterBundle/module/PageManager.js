@@ -95,9 +95,9 @@ export class PageManager {
         }
     }
     static setHome(url, tag, obj, option = {}) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         const glitter = Glitter.glitter;
-        console.log(`setHome-time:`, (_a = window.renderClock) === null || _a === void 0 ? void 0 : _a.stop());
+        // console.log(`setHome-time:`, (window as any).renderClock?.stop());
         if (glitter.waitChangePage) {
             setTimeout(() => {
                 this.setHome(url, tag, obj, option);
@@ -120,10 +120,10 @@ export class PageManager {
             tag: tag,
             deleteResource: () => { },
             createResource: () => { },
-            backGroundColor: (_b = option.backGroundColor) !== null && _b !== void 0 ? _b : 'white',
+            backGroundColor: (_a = option.backGroundColor) !== null && _a !== void 0 ? _a : 'white',
             type: GVCType.Page,
-            animation: (_c = option.animation) !== null && _c !== void 0 ? _c : glitter.animation.none,
-            dismiss: (_d = option.dismiss) !== null && _d !== void 0 ? _d : (() => { }),
+            animation: (_b = option.animation) !== null && _b !== void 0 ? _b : glitter.animation.none,
+            dismiss: (_c = option.dismiss) !== null && _c !== void 0 ? _c : (() => { }),
         });
         $('#glitterPage').append(`<page-box id="page${config.id}" style="min-width: 100vw;min-height: 100vh;left: 0;top: 0;width:100vw;
 background: ${config.backGroundColor};display: none;z-index: 9999;overflow: hidden;">
