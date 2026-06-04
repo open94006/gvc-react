@@ -1,4 +1,4 @@
-import { GvcPage } from './gvc-pages/GvcPage';
+import { GvcPage } from './pages/GvcPage';
 
 function App() {
     return <GvcPage />;

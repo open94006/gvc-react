@@ -6,6 +6,12 @@ import { GVCType } from '../lowcode/glitterBundle/module/PageManager.js';
 const glitter = new Glitter(window);
 window.glitter = glitter;
 window.rootGlitter = glitter;
+function replaceGlobalValue(inputString) {
+    if (glitter.share.EditorMode === true) {
+        return inputString;
+    }
+    return glitter.renderView?.replaceGlobalValue(inputString) ?? inputString;
+}
 function listenElementChange(query) {
     const targetElement = document.querySelector(query);
     const observer = new MutationObserver(function (mutationsList) {
@@ -115,7 +121,7 @@ function traverseHTML(element, document) {
                             let view = glitter.elementCallback[id].getView();
                             function _start() {
                                 if (typeof view === 'string') {
-                                    const html = glitter.renderView.replaceGlobalValue(view);
+                                    const html = replaceGlobalValue(view);
                                     try {
                                         $(document.querySelector(`[gvc-id="${id}"]`)).html(html);
                                     }
@@ -126,7 +132,7 @@ function traverseHTML(element, document) {
                                 }
                                 else {
                                     view.then(data => {
-                                        const html = glitter.renderView.replaceGlobalValue(data);
+                                        const html = replaceGlobalValue(data);
                                         try {
                                             $(document.querySelector(`[gvc-id="${id}"]`)).html(html);
                                         }
@@ -174,11 +180,13 @@ function traverseHTML(element, document) {
             }
         }
         let wasRecreate = false;
-        for (const b of $(element).parents()) {
-            if (b.getAttribute('glem') === 'bindView') {
-                wasRecreate = b.wasRecreate;
+        let ancestor = element.parentElement;
+        while (ancestor) {
+            if (ancestor.getAttribute('glem') === 'bindView') {
+                wasRecreate = ancestor.wasRecreate;
                 break;
             }
+            ancestor = ancestor.parentElement;
         }
         if (wasRecreate) {
             element.wasRecreate = true;
@@ -187,7 +195,7 @@ function traverseHTML(element, document) {
     }
     else {
         for (const b of element.attributes ?? []) {
-            glitter.renderView.replaceAttributeValue({
+            glitter.renderView?.replaceAttributeValue({
                 key: b.name,
                 value: b.value,
             }, element);
@@ -195,8 +203,8 @@ function traverseHTML(element, document) {
     }
     if (!(glitter.share.EditorMode === true)) {
         const inputString = element.innerHTML || element.innerText || element.textContent;
-        inputString != glitter.renderView.replaceGlobalValue(inputString) &&
-            (element.innerHTML = glitter.renderView.replaceGlobalValue(inputString));
+        const replacedString = replaceGlobalValue(inputString);
+        inputString !== replacedString && (element.innerHTML = replacedString);
     }
 }
 glitter.share.traverseHTML = traverseHTML;
@@ -215,7 +223,10 @@ listenElementChange(`#glitterPage`);
 listenElementChange(`#Navigation`);
 listenElementChange(`head`);
 glitter.closeDrawer();
-glitter.setHome('./pages/home.js', 'home', {});
+// 改前
+// glitter.setHome('./pages/home.js', 'home', {});
+// 改後
+glitter.setHome(new URL('./home.js', import.meta.url).href, 'home', {});
 function glitterInitial() {
     if (glitter.deviceType !== glitter.deviceTypeEnum.Android) {
         window.addEventListener('popstate', function (e) {

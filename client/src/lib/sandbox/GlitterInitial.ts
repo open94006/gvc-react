@@ -10,6 +10,13 @@ const glitter = new Glitter(window);
 (window as any).glitter = glitter;
 (window as any).rootGlitter = glitter;
 
+function replaceGlobalValue(inputString: string) {
+  if (glitter.share.EditorMode === true) {
+    return inputString;
+  }
+  return glitter.renderView?.replaceGlobalValue(inputString) ?? inputString;
+}
+
 function listenElementChange(query: string) {
   const targetElement: any = document.querySelector(query);
   const observer = new MutationObserver(function (mutationsList) {
@@ -124,7 +131,7 @@ function traverseHTML(element: any, document: any) {
 
               function _start() {
                 if (typeof view === 'string') {
-                  const html = glitter.renderView.replaceGlobalValue(view);
+                  const html = replaceGlobalValue(view);
                   try {
                     $(document.querySelector(`[gvc-id="${id}"]`)).html(html);
                   } catch (e: any) {
@@ -133,7 +140,7 @@ function traverseHTML(element: any, document: any) {
                   notifyLifeCycle();
                 } else {
                   view.then(data => {
-                    const html = glitter.renderView.replaceGlobalValue(data);
+                    const html = replaceGlobalValue(data);
                     try {
                       $(document.querySelector(`[gvc-id="${id}"]`)).html(html);
                     } catch (e: any) {
@@ -182,11 +189,13 @@ function traverseHTML(element: any, document: any) {
     }
 
     let wasRecreate = false;
-    for (const b of $(element).parents()) {
-      if (b.getAttribute('glem') === 'bindView') {
-        wasRecreate = (b as any).wasRecreate;
+    let ancestor = element.parentElement;
+    while (ancestor) {
+      if (ancestor.getAttribute('glem') === 'bindView') {
+        wasRecreate = (ancestor as any).wasRecreate;
         break;
       }
+      ancestor = ancestor.parentElement;
     }
     if (wasRecreate) {
       element.wasRecreate = true;
@@ -194,7 +203,7 @@ function traverseHTML(element: any, document: any) {
     renderBindView();
   } else {
     for (const b of element.attributes ?? []) {
-      glitter.renderView.replaceAttributeValue(
+      glitter.renderView?.replaceAttributeValue(
         {
           key: b.name,
           value: b.value,
@@ -205,8 +214,8 @@ function traverseHTML(element: any, document: any) {
   }
   if (!(glitter.share.EditorMode === true)) {
     const inputString = element.innerHTML || element.innerText || element.textContent;
-    inputString != glitter.renderView.replaceGlobalValue(inputString) &&
-      (element.innerHTML = glitter.renderView.replaceGlobalValue(inputString));
+    const replacedString = replaceGlobalValue(inputString);
+    inputString !== replacedString && (element.innerHTML = replacedString);
   }
 }
 
@@ -224,7 +233,12 @@ listenElementChange(`#glitterPage`);
 listenElementChange(`#Navigation`);
 listenElementChange(`head`);
 glitter.closeDrawer();
-glitter.setHome('./pages/home.js', 'home', {});
+
+// 改前
+// glitter.setHome('./pages/home.js', 'home', {});
+
+// 改後
+glitter.setHome(new URL('./home.js', import.meta.url).href, 'home', {});
 
 function glitterInitial() {
   if (glitter.deviceType !== glitter.deviceTypeEnum.Android) {

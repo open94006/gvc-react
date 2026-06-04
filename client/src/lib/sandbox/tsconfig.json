@@ -1,20 +1,15 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020",
-    "moduleResolution": "node",
-    "noResolve": true,
-    "strict": false,
-    "types": [],
-    "outDir": "./",
-    "rootDir": "./",
-    "declaration": false,
-    "sourceMap": true
-  },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ES2020",
+        "noResolve": true,
+        "strict": false,
+        "types": [],
+        "outDir": "../../../public/sandbox",
+        "rootDir": "./",
+        "declaration": false,
+        "sourceMap": true
+    },
+    "include": ["./*.ts", "./**/*.ts"],
+    "exclude": ["node_modules"]
 }

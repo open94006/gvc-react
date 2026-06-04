@@ -62,6 +62,13 @@
 
 - `liondesign.pem`
 - `ssl/` 目錄下的檔案（包含 `.pem`、`.key`、`.cert`、`.p12`）
+- glitterBundle/plugins 底下的
+  - editor-elem.ts
+  - editor.ts
+  - html-render.ts
+  - seo-manager.ts
+  - style-editor.ts
+  - trigger-event.ts
 
 > 上述白名單僅適用於既有專案路徑，不得延伸到其他目錄或新命名的敏感檔案。
 > 若發現上述檔案已被追蹤（tracked），應立即停止操作並回報，不可自行處理。
@@ -140,9 +147,9 @@ refactor(api): 將訂單查詢邏輯抽離為獨立 service
 
 ---
 
-## 5. commit 前 code-review 文件規格
+## 5. commit 前 code_review 文件規格
 
-在確認程式碼與暫存內容皆無問題後、執行 `git commit` 之前，必須先在專案根目錄的 `code-review/` 建立一份給工程師閱讀的變更說明 Markdown。
+在確認程式碼與暫存內容皆無問題後、執行 `git commit` 之前，必須先在專案根目錄的 `code_review/` 建立一份給工程師閱讀的變更說明 Markdown。
 
 ### 5.1 檔名命名規則
 
@@ -176,11 +183,11 @@ yyyy-mm-dd-hhmm-<type>-xxx.md
 
 ### 5.3 格式化文件
 
-code-review markdown 建立後，必須執行一次 prettier 格式化。
+code_review markdown 建立後，必須執行一次 prettier 格式化。
 
 格式化完成後，必須確認該檔案已無進一步修改（例如使用 prettier --check 或檢查 git diff）。
 
-若 prettier 有產生變更，需將該 code-review 檔案重新加入暫存區後，才能進行 commit。
+若 prettier 有產生變更，需將該 code_review 檔案重新加入暫存區後，才能進行 commit。
 
 ---
 
@@ -201,13 +208,13 @@ code-review markdown 建立後，必須執行一次 prettier 格式化。
         ↓
 6. 掃描暫存內容是否含敏感資訊
         ↓ 無異常
-7. 在專案根目錄 code-review/ 建立時間戳命名的 markdown 變更說明
+7. 在專案根目錄 code_review/ 建立時間戳命名的 markdown 變更說明
         ↓
-8. 對該 code-review markdown 執行 prettier
+8. 對該 code_review markdown 執行 prettier
         ↓
 9. 確認 prettier 執行後該檔案已無進一步修改
         ↓
-10. 若 prettier 有修改，重新執行 git add <code-review 檔案>
+10. 若 prettier 有修改，重新執行 git add <code_review 檔案>
         ↓
 11. 依照 Conventional Commits 格式撰寫 commit message
         ↓
