@@ -1,25 +1,29 @@
 // @ts-ignore Runtime module is served from the prebuilt lowcode bundle.
 import { init, GVC } from '../lowcode/glitterBundle/GVController.js';
-import { Aaa } from './pages/aaa.js';
+import { CounterGVC } from './pages/CounterGVC.js';
+
+const html = String.raw;
 
 init(import.meta.url, (gvc: GVC) => {
-  const vm = {
-    count: 0,
-    name: 'GVC Sandbox',
-    bind_id: 'home-view',
-  };
+  const bind_id = 'home-view';
 
   const onCreateView = () => {
     return gvc.bindView({
-      bind: vm.bind_id,
+      bind: bind_id,
       view: () => {
-        return Aaa.render(gvc);
+        return html` <div>
+            <h2>GVC</h2>
+            <p>這裡的元件是由 GVC 產生</p>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: start; margin-top: 20px; gap: 20px;">
+            ${[CounterGVC(gvc), CounterGVC(gvc)].join('')}
+          </div>`;
       },
-      onCreate: () => {},
+      divCreate: {
+        style: 'padding: 20px',
+      },
     });
   };
 
-  return {
-    onCreateView,
-  };
+  return { onCreateView };
 });

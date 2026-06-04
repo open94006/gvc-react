@@ -1,35 +1,33 @@
 {
-    "name": "client",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build:bundle": "tsc -p public/lowcode/glitterBundle/tsconfig.json",
-        "build:bundle:watch": "tsc -p public/lowcode/glitterBundle/tsconfig.json --watch",
-        "build:sandbox": "tsc -p src/lib/sandbox/tsconfig.json",
-        "build:sandbox:watch": "tsc -p src/lib/sandbox/tsconfig.json --watch",
-        "build:watch": "npm run build:bundle:watch",
-        "build": "npm run build:bundle && npm run build:sandbox && tsc -b && vite build",
-        "lint": "eslint .",
-        "preview": "vite preview"
-    },
-    "dependencies": {
-        "react": "^19.2.6",
-        "react-dom": "^19.2.6"
-    },
-    "devDependencies": {
-        "@eslint/js": "^10.0.1",
-        "@types/node": "^24.12.3",
-        "@types/react": "^19.2.14",
-        "@types/react-dom": "^19.2.3",
-        "@vitejs/plugin-react": "^6.0.1",
-        "eslint": "^10.3.0",
-        "eslint-plugin-react-hooks": "^7.1.1",
-        "eslint-plugin-react-refresh": "^0.5.2",
-        "globals": "^17.6.0",
-        "typescript": "~6.0.2",
-        "typescript-eslint": "^8.59.2",
-        "vite": "^8.0.12"
-    }
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "gvc:clean": "rm -rf public/sandbox && find src/lib/lowcode/glitterBundle -name '*.ts' ! -name '*.d.ts' -exec sh -c 'for f do rm -f \"${f%.ts}.js\" \"${f%.ts}.js.map\"; done' sh {} +",
+    "gvc:build": "pnpm gvc:clean && tsc -p src/lib/lowcode/glitterBundle/tsconfig.json && tsc -p src/lib/sandbox/tsconfig.json",
+    "gvc:watch": "pnpm gvc:clean && tsc -p src/lib/lowcode/glitterBundle/tsconfig.json --watch & tsc -p src/lib/sandbox/tsconfig.json --watch & wait"
+  },
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12"
+  }
 }
