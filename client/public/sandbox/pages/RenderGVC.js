@@ -31,7 +31,7 @@ export function RenderGVC(gvc) {
     return html `<div>
     <h3>2. Render</h3>
     ${widgetContainer}
-    <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+    <div style="display: flex; gap: 6px; margin-top: 10px;">
       <button
         onclick="${gvc.event(() => {
         gvc.notifyDataChange('widget'); // 重繪 widget
