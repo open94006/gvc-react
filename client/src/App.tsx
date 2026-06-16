@@ -1,17 +1,8 @@
-import { Footer } from './layouts/Footer';
-import { Header } from './layouts/Header';
-import { Main } from './layouts/Main';
-import { GvcPage } from './pages/GvcPage';
-import { ReactPage } from './pages/ReactPage';
+import { RouterProvider } from 'react-router';
+import { router } from './routers/MainRouter';
 
 function App() {
-  return (
-    <div>
-      <Header />
-      <Main ViewGVC={<GvcPage />} ViewReact={<ReactPage />} />
-      <Footer />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

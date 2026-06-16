@@ -1,7 +1,9 @@
 import { CounterReact } from '../react-view/CounterReact';
 import { FormReact } from '../react-view/FormReact';
+import { ZustandCountView } from '../react-view/zustand/ZustandCountView';
 import { RenameReact } from '../react-view/RenameReact';
 import { RenderReact } from '../react-view/RenderReact';
+import { CallRandomIdReact } from '../react-view/CallRandomIdReact';
 
 export function ReactPage() {
   return (
@@ -13,6 +15,8 @@ export function ReactPage() {
         {<RenderReact />}
         {<RenameReact />}
         {<FormReact />}
+        {<ZustandCountView />}
+        {<CallRandomIdReact />}
       </div>
     </section>
   );

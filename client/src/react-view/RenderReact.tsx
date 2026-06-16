@@ -8,28 +8,36 @@ export function RenderReact() {
 
   // 無填寫：每次 render 後都執行
   useEffect(() => {
-    console.log(`React-2: 每次 render 後都執行 (data=${String(data)})`);
+    console.log(`React-2: 每次 render 後都執行 (data: ${String(data)}, count: ${count})`);
   });
 
   // [data]：data 改變後才執行
+  const [count, setCount] = useState(0);
   const [data, setData] = useState(true);
   useEffect(() => {
-    if (data) {
-      console.log('React-3: data=true 才執行 (useEffect 本身有執行)');
-    }
+    console.log(`React-3: data 產生變化才執行 (data: ${String(data)}, count: ${count})`);
   }, [data]);
 
   return (
     <div>
       <h3>2. Render</h3>
       <div>{data ? '元件已顯示' : '元件已隱藏'}</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 10 }}>
+      <div style={{ display: 'flex', gap: 6, marginTop: 10 }}>
         <button
           onClick={() => {
-            setData(!data);
+            setCount(() => count + 1);
+            setData(true);
           }}
         >
-          Widget 改值
+          true
+        </button>
+        <button
+          onClick={() => {
+            setCount(() => count - 1);
+            setData(false);
+          }}
+        >
+          false
         </button>
       </div>
     </div>
