@@ -12,7 +12,7 @@ export const ZustandCountAddView = () => {
       <div>{count}</div>
       <div style={{ display: 'flex', gap: 4 }}>
         <button onClick={() => incrementEvent(1)}>+1</button>
-        <button onClick={() => navigate('/')}>切換到 Home</button>
+        <button onClick={() => navigate('..')}>切換到 Home</button>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export const ZustandCountView = () => {
       <div>{count}</div>
       <div style={{ display: 'flex', gap: 6 }}>
         <button onClick={() => resetCount()}>重置</button>
-        <button onClick={() => navigate('/zustandAdd')}>切換到 Add View</button>
+        <button onClick={() => navigate('zustandAdd')}>切換到 Add View</button>
       </div>
     </div>
   );
